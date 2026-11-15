@@ -23,4 +23,4 @@ Website for Inky Lantern Studio, a themed environment design studio led by Julia
 - Keep all project facts, credits and copyright lines exactly as they are; they come from Julia's portfolio PDF.
 - Avoid all-caps labels, eyebrow labels, and numbering things that aren't a sequence.
 - Must work on phones, keep visible keyboard focus, keep text contrast at WCAG AA.
-- Contact: julietbilnko@gmail.com, and linkedin.com/in/julia-bilenko shown as an icon link. No phone number on the site (removed 2026-11-15).
+- Contact: an "Email us" button (mailto:julietbilnko@gmail.com; the address itself is not shown as text) and linkedin.com/in/julia-bilenko as an icon link. No phone number on the site (removed 2026-11-15).
