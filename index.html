@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inky Lantern Studio — themed environment design, led by Julia Bilenko</title>
+<meta name="description" content="Inky Lantern Studio is a themed environment design studio led by Julia Bilenko, founder and creative director. Themed environments and experiences for small attractions and venues.">
+<meta name="theme-color" content="#121019">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Inter:wght@400..600&amp;display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --ink:#121019; --raised:#1C1925; --text:#EDE6D6; --soft:#C9C1D3; --muted:#9A93A8;
+  --line:#3A3446; --line-2:#5A5268; --amber:#D9973F;
+  --gutter:clamp(16px,4vw,32px); --header-h:68px;
+  --serif:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 16px)}
+html:has(dialog[open]){overflow:hidden}
+body{margin:0;background:var(--ink);color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--text);transition:color .15s,background-color .15s}
+a:hover{color:var(--amber)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;margin:0;text-wrap:balance}
+p{text-wrap:pretty}
+::selection{background:var(--amber);color:var(--ink)}
+p,figure,dl,dd,ol,ul{margin:0}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:var(--gutter)}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* skip link */
+.skip{position:absolute;left:16px;top:-100px;z-index:200;padding:12px 18px;background:var(--amber);color:var(--ink);font-weight:600;text-decoration:none}
+.skip:focus{top:12px}
+.skip:hover{color:var(--ink)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 24px;background:var(--amber);color:var(--ink);text-decoration:none;font-weight:600}
+.btn:hover{color:var(--ink);background:#E6A653}
+
+/* header */
+.site-header{position:sticky;top:0;z-index:50;background:rgb(18 16 25 / .92);border-bottom:1px solid var(--line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.site-header nav{min-height:var(--header-h);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;padding-block:10px}
+.site-header .home{display:block;line-height:0}
+.site-header .home img{height:46px;width:auto}
+@media (max-width:400px){.site-header nav{gap:8px 12px}.site-header .home img{height:42px}.site-header .links{gap:0 14px;font-size:15px}}
+.site-header .links{display:flex;flex-wrap:wrap;gap:0 28px;font-size:16px}
+.site-header .links a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;box-shadow:inset 0 -2px 0 transparent;transition:color .15s,box-shadow .2s}
+.site-header .links a.on{box-shadow:inset 0 -2px 0 var(--amber)}
+
+/* hero */
+.hero-intro{display:flex;flex-wrap:wrap;align-items:flex-end;gap:28px 72px;padding-block:clamp(40px,6vw,72px) clamp(32px,4vw,48px)}
+.hero-intro h1{flex:2 1 520px;line-height:0}
+.hero-intro h1 img{width:clamp(240px,40vw,600px);height:auto}
+.hero-intro .lede{flex:1 1 300px;max-width:440px}
+.hero-intro .lede p{margin-bottom:24px;font-size:20px;line-height:1.5}
+.hero-intro .lede .led{margin-top:-10px;font-size:16px;color:var(--soft)}
+.hero-art{position:relative}
+.hero-art::before,.hero-art::after{content:"";position:absolute;z-index:1;left:0;right:0;pointer-events:none}
+.hero-art::before{top:0;height:22%;background:linear-gradient(var(--ink),transparent)}
+.hero-art::after{bottom:0;height:30%;background:linear-gradient(transparent,var(--ink))}
+@media (prefers-reduced-motion:no-preference){
+  .hero-intro h1,.hero-intro .lede{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+  .hero-intro .lede{animation-delay:.12s}
+  .hero-art img{animation:fade 1.4s ease .15s both}
+  .gallery .zoom img,.sheet-main .zoom img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .gallery .zoom:hover img{transform:scale(1.045)}
+  .sheet-main .zoom:hover img{transform:scale(1.015)}
+}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.rv.in{opacity:1;transform:none}
+.hero-art img{width:100%;aspect-ratio:21/9;min-height:240px;max-height:72vh;object-fit:cover;object-position:center 35%;background:var(--raised)}
+
+/* sections */
+.section{border-top:1px solid var(--line);padding-block:clamp(72px,9vw,112px)}
+#top+.section{border-top:0;padding-top:clamp(24px,4vw,56px)}
+.section-title{font-size:clamp(40px,5vw,68px);line-height:1}
+
+.about{display:flex;flex-wrap:wrap;gap:40px 72px}
+.about .big{flex:3 1 480px;font-family:var(--serif);font-weight:500;font-size:clamp(32px,3.6vw,50px);line-height:1.12;max-width:20em}
+.about .body{flex:2 1 340px;max-width:34em;color:var(--soft)}
+.about .body p+p{margin-top:18px}
+
+/* drawing register */
+.register{list-style:none;padding:0;margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:1px;background:var(--line-2);border:1px solid var(--line-2)}
+.register a{display:grid;grid-template-columns:120px minmax(0,1fr) auto;align-items:center;gap:16px 22px;height:100%;padding:14px 20px 14px 14px;background:var(--ink);text-decoration:none}
+.register a:hover{background:var(--raised);color:var(--text)}
+.register a:focus-visible{outline-offset:-4px}
+.register img{width:120px;aspect-ratio:3/2;object-fit:cover;background:var(--raised)}
+.register .t{display:block;font-family:var(--serif);font-weight:500;font-size:26px;line-height:1.1}
+.register a:hover .t{color:var(--amber)}
+.register .s{display:block;margin-top:4px;font-size:15px;color:var(--amber);line-height:1.35}
+.register .y{font-size:14px;color:var(--muted);white-space:nowrap}
+@media (max-width:480px){
+  .register a{grid-template-columns:72px minmax(0,1fr);padding:12px}
+  .register img{width:72px}
+  .register .y{grid-column:2;margin-top:-10px}
+}
+
+/* sheets */
+.sheet{position:relative;margin-top:clamp(56px,7vw,88px);padding-top:clamp(40px,5vw,64px);border-top:1px solid var(--line);
+  display:grid;gap:28px;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "main" "side" "gallery" "note"}
+nav+.sheet{border-top:0;padding-top:0}
+.sheet-head{grid-area:head}
+.sheet-head h3{font-size:clamp(34px,4.4vw,60px);line-height:1.02}
+.sheet-head p{margin-top:8px;font-size:17px;color:var(--amber)}
+.sheet-main{grid-area:main}
+.sheet-side{grid-area:side;display:flex;flex-direction:column;gap:28px}
+.sheet-side>p{color:var(--soft);max-width:34em}
+.gallery{grid-area:gallery;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:24px 20px;align-content:start}
+.sheet-note{grid-area:note;font-size:13px;color:var(--muted);max-width:60em}
+@media (min-width:960px){
+  .sheet{column-gap:40px;grid-template-columns:minmax(0,1fr) 340px;grid-template-areas:"head side" "main side" "gallery side" "note side";grid-template-rows:auto auto auto 1fr}
+  .sheet-side{align-self:start;position:sticky;top:calc(var(--header-h) + 24px)}
+}
+@media (min-width:1200px){.sheet{grid-template-columns:minmax(0,1fr) 380px}}
+
+/* figures and zoom */
+figcaption{margin-top:8px;font-size:14px;color:var(--muted);line-height:1.45}
+.zoom{position:relative;display:block;overflow:hidden;line-height:0;background:var(--raised);cursor:zoom-in}
+.zoom img{width:100%;background:var(--raised)}
+.gallery .zoom img{aspect-ratio:3/2;object-fit:cover}
+@media (max-width:600px){
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 12px}
+  .gallery figcaption{font-size:13px}
+  .gallery .zoom .ico{width:28px;height:28px;right:6px;bottom:6px}
+}
+.zoom .ico{position:absolute;right:8px;bottom:8px;width:32px;height:32px;display:grid;place-items:center;background:rgb(18 16 25 / .85);color:var(--text);border:1px solid var(--line-2);opacity:0;transition:opacity .15s}
+.zoom:hover .ico,.zoom:focus-visible .ico{opacity:1}
+@media (hover:none){.zoom .ico{opacity:1}}
+
+/* title block */
+.tb{border:1px solid var(--line-2);display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.tb>div{padding:10px 14px;border-bottom:1px solid var(--line-2);grid-column:1/-1}
+.tb>div:last-child{border-bottom:0}
+.tb>.half{grid-column:auto}
+.tb>.half.l{border-right:1px solid var(--line-2)}
+.tb .tb-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tb .tb-head span{font-size:13px;color:var(--muted)}
+.tb dt{font-size:13px;color:var(--muted)}
+.tb dd{margin-top:2px;font-size:15px;line-height:1.4}
+
+/* process */
+.stages{list-style:none;padding:0;margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:40px 0}
+.stages li{border-top:2px solid var(--line);padding-right:28px}
+.stages .dot{display:block;width:14px;height:14px;border-radius:50%;background:var(--amber);margin:-8px 0 22px}
+.stages .n{display:block;font-size:15px;color:var(--muted)}
+.stages h3{margin:4px 0 10px;font-size:34px;line-height:1.1}
+.stages p{color:var(--soft);max-width:24em}
+
+/* contact */
+.contact{background:var(--raised);border-top:1px solid var(--line);padding-block:clamp(88px,10vw,128px)}
+.contact .wrap{display:grid;gap:40px 80px;align-items:end}
+@media (min-width:900px){.contact .wrap{grid-template-columns:minmax(0,3fr) minmax(0,2fr)}}
+.contact h2{font-size:clamp(52px,7vw,104px);line-height:.95}
+.contact .side>p:first-child{color:var(--soft);max-width:34em}
+.contact .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.contact .btn{min-height:52px;padding:0 28px}
+.contact .social{display:grid;place-items:center;width:52px;height:52px;border:1px solid var(--line-2);color:var(--text)}
+.contact .social:hover{color:var(--amber);border-color:var(--amber)}
+.contact .addr{margin-top:18px;font-size:16px;overflow-wrap:anywhere}
+.contact .addr a{display:inline-block;padding-block:6px;color:var(--soft)}
+.contact .addr a:hover{color:var(--amber)}
+
+footer{border-top:1px solid var(--line)}
+footer .wrap{padding-block:32px;display:flex;flex-direction:column;gap:12px;font-size:13px;color:var(--muted)}
+footer p:first-child{max-width:64em}
+
+/* viewer */
+.viewer{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgb(10 9 14 / .97);color:var(--text)}
+.viewer::backdrop{background:rgb(10 9 14 / .8)}
+.viewer[open]{display:flex;flex-direction:column}
+.viewer .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px var(--gutter);border-bottom:1px solid var(--line)}
+.viewer .count{font-size:14px;color:var(--muted)}
+.viewer .ctrls{display:flex;gap:8px}
+.viewer button{width:44px;height:44px;display:grid;place-items:center;background:transparent;color:var(--text);border:1px solid var(--line-2);cursor:pointer;transition:background-color .15s,color .15s}
+.viewer button:hover{background:var(--raised);color:var(--amber)}
+.viewer button[hidden]{display:none}
+.viewer .stage{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px var(--gutter) 20px}
+.viewer .stage img{max-width:100%;max-height:100%;min-height:0;width:auto;height:auto;object-fit:contain;flex:0 1 auto}
+.viewer figcaption{margin:0;text-align:center}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+<nav aria-label="Main" class="wrap">
+<a href="#top" class="home"><img src="images/inky-lantern.png" alt="Inky Lantern Studio" width="1470" height="700"></a>
+<div class="links">
+<a href="#work">Work</a>
+<a href="#process">Process</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+</header>
+
+<main id="main">
+
+<section id="top">
+<div class="wrap hero-intro">
+<h1><img src="images/inky-lantern.png" alt="Inky Lantern Studio" width="1470" height="700"></h1>
+<div class="lede">
+<p>Themed environments and experiences for small attractions and venues: the story, the layout, and the look.</p>
+<p class="led">Inky Lantern Studio is led by Julia Bilenko, founder and creative director.</p>
+<a href="#work" class="btn">See the work</a>
+</div>
+</div>
+<div class="hero-art">
+<img src="images/thornwick-hero.jpg" width="1600" height="891" fetchpriority="high" alt="Concept painting: the iron gates of Thornwick Academy at night, lamplit windows and violet mist">
+</div>
+</section>
+
+<section aria-label="About" class="section">
+<div class="wrap about">
+<p class="big">Ten years designing theme parks. Now whole spaces for smaller venues.</p>
+<div class="body">
+<p>I've drawn land concepts, props, attraction assets and characters for the studios that build them. At Inky Lantern Studio, we bring that craft to bars, family entertainment centres and attractions without an in-house creative team: a story, a plan, and pictures a fabricator can price and build from.</p>
+<p>Small budgets and awkward buildings are the normal case, not the exception.</p>
+<p style="color:var(--muted)">Family entertainment centres and indoor attractions; immersive dining, themed bars and hospitality; visitor attractions, seasonal events and pop-ups; themed areas within larger parks.</p>
+</div>
+</div>
+</section>
+
+<section id="work" aria-labelledby="work-h" class="section">
+<div class="wrap">
+<h2 id="work-h" class="section-title">Selected projects</h2>
+
+<nav aria-label="Projects">
+<ul class="register">
+<li><a href="#thornwick"><img src="images/thornwick-iso.jpg" width="1600" height="899" alt="" loading="lazy" decoding="async"><span><span class="t">A Night at Thornwick</span><span class="s">Immersive dining concept, Inky Lantern Studio</span></span><span class="y">2026</span></a></li>
+<li><a href="#eurosat"><img src="images/eurosat-main.jpg" width="1500" height="1148" alt="" loading="lazy" decoding="async"><span><span class="t">Eurosat “Artist Studio” facades, Europa-Park</span><span class="s">From concept to fabrication drawings</span></span><span class="y">2018</span></a></li>
+<li><a href="#legoland"><img src="images/lego-map.jpg" width="1600" height="1053" alt="" loading="lazy" decoding="async"><span><span class="t">LEGOLAND California: Dino Valley map</span><span class="s">Park-scale illustration</span></span><span class="y">2023</span></a></li>
+<li><a href="#jungle"><img src="images/jungle-arrival.jpg" width="1000" height="563" alt="" loading="lazy" decoding="async"><span><span class="t">I’m A Celebrity… Jungle Challenge</span><span class="s">Indoor visitor attraction</span></span><span class="y">2018</span></a></li>
+<li><a href="#props"><img src="images/props-carts.jpg" width="1273" height="900" alt="" loading="lazy" decoding="async"><span><span class="t">Themed food units, props and scenic dressing</span><span class="s">Props and scenic packages</span></span><span class="y">2017–2019</span></a></li>
+<li><a href="#after-dark"><img src="images/night-masterplan.jpg" width="1000" height="563" alt="" loading="lazy" decoding="async"><span><span class="t">Atmosphere: after dark</span><span class="s">Night shows, dark rides and park visuals</span></span><span class="y">2017–2020</span></a></li>
+</ul>
+</nav>
+
+<!-- Thornwick -->
+<article id="thornwick" class="sheet" aria-labelledby="thornwick-h">
+<header class="sheet-head">
+<h3 id="thornwick-h">A Night at Thornwick</h3>
+<p>Immersive dining concept, Inky Lantern Studio</p>
+</header>
+<figure class="sheet-main">
+<a class="zoom" href="images/thornwick-iso.jpg"><img src="images/thornwick-iso.jpg" width="1600" height="899" alt="Isometric venue sketch" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a>
+<figcaption>Isometric venue sketch</figcaption>
+</figure>
+<div class="sheet-side">
+<p>An immersive dinner in an old school of witchcraft: 96 guests, a seven-act story timed to the courses, a talking cat who travels through shadows, and something under the building that wakes up. Designed as a complete package: story, characters, zoned venue plan, guest flow, menu outline and physical effects.</p>
+<dl aria-label="Project details" class="tb">
+<div class="tb-head"><img src="images/inky-lantern.png" alt="" aria-hidden="true" width="1470" height="700" style="height:34px;width:auto"><span>Drawn by Julia Bilenko</span></div>
+<div><dt>Client</dt><dd>Original IP, seeking a venue partner</dd></div>
+<div class="half l"><dt>Year</dt><dd>2026</dd></div>
+<div class="half"><dt>Status</dt><dd>Concept, pitch-ready</dd></div>
+<div><dt>Role</dt><dd>Author, concept and spatial design</dd></div>
+<div><dt>Delivered</dt><dd>Story bible, concept art, venue sketch and plan, run of show, menu</dd></div>
+</dl>
+</div>
+<div class="gallery">
+<figure><a class="zoom" href="images/thornwick-plan.jpg"><img src="images/thornwick-plan.jpg" width="1600" height="954" alt="Zoned plan with guest flow" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Zoned plan with guest flow</figcaption></figure>
+<figure><a class="zoom" href="images/thornwick-umbra.jpg"><img src="images/thornwick-umbra.jpg" width="998" height="1600" alt="Umbra, built from projection and light" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Umbra, built from projection and light</figcaption></figure>
+<figure><a class="zoom" href="images/thornwick-choice.jpg"><img src="images/thornwick-choice.jpg" width="1054" height="510" alt="The Choice" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>The Choice</figcaption></figure>
+</div>
+<p class="sheet-note">© 2026 Inky Lantern Studio. The full concept deck is available under NDA: ask for it by email.</p>
+</article>
+
+<!-- Eurosat -->
+<article id="eurosat" class="sheet" aria-labelledby="eurosat-h">
+<header class="sheet-head">
+<h3 id="eurosat-h">Eurosat “Artist Studio” facades, Europa-Park</h3>
+<p>From concept to fabrication drawings</p>
+</header>
+<figure class="sheet-main">
+<a class="zoom" href="images/eurosat-main.jpg"><img src="images/eurosat-main.jpg" width="1500" height="1148" alt="Street-side facades: elevations with material call-outs" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a>
+<figcaption>Street-side facades: elevations with material call-outs</figcaption>
+</figure>
+<div class="sheet-side">
+<p>Facade schematics for the Artist Studio scenes: elevations with materials, colours and fixings called out so the scenic contractor could price and build from the sheets. The same drawings carried the look from concept renders into the workshop.</p>
+<dl aria-label="Project details" class="tb">
+<div class="tb-head"><img src="images/inky-lantern.png" alt="" aria-hidden="true" width="1470" height="700" style="height:34px;width:auto"><span>Drawn by Julia Bilenko</span></div>
+<div><dt>Client / venue</dt><dd>Europa-Park, Eurosat</dd></div>
+<div class="half l"><dt>Year</dt><dd>2018</dd></div>
+<div class="half"><dt>Status</dt><dd>Built</dd></div>
+<div><dt>Role</dt><dd>Scenic elevations variants</dd></div>
+<div><dt>Delivered</dt><dd>Facade elevations, material and colour schedules, detail views</dd></div>
+</dl>
+</div>
+<div class="gallery">
+<figure><a class="zoom" href="images/eurosat-side.jpg"><img src="images/eurosat-side.jpg" width="1174" height="985" alt="Side elevations and detail views" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Side elevations and detail views</figcaption></figure>
+</div>
+<p class="sheet-note">Concept art by Julia Bilenko for Scruffy Dog Productions Ltd. Project © Scruffy Dog Productions Ltd and its clients. Brands belong to their owners.</p>
+</article>
+
+<!-- LEGOLAND -->
+<article id="legoland" class="sheet" aria-labelledby="legoland-h">
+<header class="sheet-head">
+<h3 id="legoland-h">LEGOLAND California: Dino Valley map</h3>
+<p>Park-scale illustration</p>
+</header>
+<figure class="sheet-main">
+<a class="zoom" href="images/lego-map.jpg"><img src="images/lego-map.jpg" width="1600" height="1053" alt="Dino Valley guest map, LEGOLAND California" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a>
+<figcaption>Dino Valley guest map, LEGOLAND California</figcaption>
+</figure>
+<div class="sheet-side">
+<p>An illustrated land map for the opening of Dino Valley: every ride, path and planting bed drawn to read at a glance, in the LEGOLAND house style. Also shown: land-entrance visuals for LEGOLAND Deutschland.</p>
+<dl aria-label="Project details" class="tb">
+<div class="tb-head"><img src="images/inky-lantern.png" alt="" aria-hidden="true" width="1470" height="700" style="height:34px;width:auto"><span>Drawn by Julia Bilenko</span></div>
+<div><dt>Client / venue</dt><dd>LEGOLAND California Resort (Merlin)</dd></div>
+<div class="half l"><dt>Year</dt><dd>2023</dd></div>
+<div class="half"><dt>Status</dt><dd>Published</dd></div>
+<div><dt>Role</dt><dd>Illustration and visual development</dd></div>
+<div><dt>Delivered</dt><dd>Guest map artwork, entrance visuals</dd></div>
+</dl>
+</div>
+<div class="gallery">
+<figure><a class="zoom" href="images/lego-entrance.jpg"><img src="images/lego-entrance.jpg" width="750" height="477" alt="Land entrance visual, LEGOLAND Deutschland" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Land entrance visual, LEGOLAND Deutschland</figcaption></figure>
+</div>
+<p class="sheet-note">Concept art by Julia Bilenko for Glen Chambers design and Scruffy Dog Productions Ltd (entrance visual). LEGOLAND® is a trademark of the LEGO Group.</p>
+</article>
+
+<!-- Jungle -->
+<article id="jungle" class="sheet" aria-labelledby="jungle-h">
+<header class="sheet-head">
+<h3 id="jungle-h">I’m A Celebrity… Jungle Challenge</h3>
+<p>Indoor visitor attraction</p>
+</header>
+<figure class="sheet-main">
+<a class="zoom" href="images/jungle-arrival.jpg"><img src="images/jungle-arrival.jpg" width="1000" height="563" alt="Arrival hall: the jungle canopy and show letters" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a>
+<figcaption>Arrival hall: the jungle canopy and show letters</figcaption>
+</figure>
+<div class="sheet-side">
+<p>Concept visuals for an indoor jungle attraction built on a TV format: the arrival hall, wayfinding and trial signage, the high-ropes trials and the themed refreshment shack that turns the exit into food and drink revenue.</p>
+<dl aria-label="Project details" class="tb">
+<div class="tb-head"><img src="images/inky-lantern.png" alt="" aria-hidden="true" width="1470" height="700" style="height:34px;width:auto"><span>Drawn by Julia Bilenko</span></div>
+<div><dt>Client / venue</dt><dd>ITV</dd></div>
+<div class="half l"><dt>Year</dt><dd>2018</dd></div>
+<div class="half"><dt>Status</dt><dd>Built</dd></div>
+<div><dt>Role</dt><dd>Concept visuals and signage</dd></div>
+<div><dt>Delivered</dt><dd>Key visuals, signage family, F&amp;B unit concept</dd></div>
+</dl>
+</div>
+<div class="gallery">
+<figure><a class="zoom" href="images/jungle-signage.jpg"><img src="images/jungle-signage.jpg" width="1000" height="667" alt="Trial signage family" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Trial signage family</figcaption></figure>
+<figure><a class="zoom" href="images/jungle-ropes.jpg"><img src="images/jungle-ropes.jpg" width="1000" height="563" alt="High-ropes trials" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>High-ropes trials</figcaption></figure>
+<figure><a class="zoom" href="images/jungle-shack.jpg"><img src="images/jungle-shack.jpg" width="1000" height="563" alt="Refreshment shack" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Refreshment shack</figcaption></figure>
+</div>
+<p class="sheet-note">Concept art by Julia Bilenko for Scruffy Dog Productions Ltd. Project © Scruffy Dog Productions Ltd and its clients. Format and brand belong to their owners.</p>
+</article>
+
+<!-- Props -->
+<article id="props" class="sheet" aria-labelledby="props-h">
+<header class="sheet-head">
+<h3 id="props-h">Themed food units, props and scenic dressing</h3>
+<p>Props and scenic packages</p>
+</header>
+<figure class="sheet-main">
+<a class="zoom" href="images/props-carts.jpg"><img src="images/props-carts.jpg" width="1273" height="900" alt="Food carts and ship-fronted kiosk" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a>
+<figcaption>Food carts and ship-fronted kiosk</figcaption>
+</figure>
+<div class="sheet-side">
+<p>Prop and scenic sheets from themed lands: food carts and a ship-fronted kiosk, lantern and banner families, a bamboo canopy, hero trees, glowing planting and interior set pieces. Each sheet is drawn so a fabricator can quote from it: front, side, scale and finish.</p>
+<dl aria-label="Project details" class="tb">
+<div class="tb-head"><img src="images/inky-lantern.png" alt="" aria-hidden="true" width="1470" height="700" style="height:34px;width:auto"><span>Drawn by Julia Bilenko</span></div>
+<div><dt>Client / venue</dt><dd>Various themed lands</dd></div>
+<div class="half l"><dt>Year</dt><dd>2017–2019</dd></div>
+<div class="half"><dt>Status</dt><dd>Built and concept</dd></div>
+<div><dt>Role</dt><dd>Prop design and art direction</dd></div>
+<div><dt>Delivered</dt><dd>Prop sheets with scale, finish and reference</dd></div>
+</dl>
+</div>
+<div class="gallery">
+<figure><a class="zoom" href="images/props-lanterns.jpg"><img src="images/props-lanterns.jpg" width="1500" height="985" alt="Lantern and banner family" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Lantern and banner family</figcaption></figure>
+<figure><a class="zoom" href="images/props-canopy.jpg"><img src="images/props-canopy.jpg" width="1500" height="1000" alt="Bamboo canopy structure" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Bamboo canopy structure</figcaption></figure>
+<figure><a class="zoom" href="images/props-trees.jpg"><img src="images/props-trees.jpg" width="1500" height="1000" alt="Hero trees" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Hero trees</figcaption></figure>
+<figure><a class="zoom" href="images/props-planting.jpg"><img src="images/props-planting.jpg" width="1000" height="535" alt="Glowing planting" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Glowing planting</figcaption></figure>
+<figure><a class="zoom" href="images/props-interior.jpg"><img src="images/props-interior.jpg" width="1500" height="973" alt="Interior set pieces" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Interior set pieces</figcaption></figure>
+</div>
+<p class="sheet-note">Concept art by Julia Bilenko for Scruffy Dog Productions Ltd. Project © Scruffy Dog Productions Ltd and its clients. Brands belong to their owners.</p>
+</article>
+
+<!-- After dark -->
+<article id="after-dark" class="sheet" aria-labelledby="after-dark-h">
+<header class="sheet-head">
+<h3 id="after-dark-h">Atmosphere: after dark</h3>
+<p>Night shows, dark rides and park visuals</p>
+</header>
+<figure class="sheet-main">
+<a class="zoom" href="images/night-masterplan.jpg"><img src="images/night-masterplan.jpg" width="1000" height="563" alt="Illuminated park masterplan" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a>
+<figcaption>Illuminated park masterplan</figcaption>
+</figure>
+<div class="sheet-side">
+<p>Key visuals for evening programmes and dark-ride scenes: a park-wide illuminated masterplan, a fireworks finale, a glowing forest walk, a dark-ride laboratory. The pictures that get an evening programme approved.</p>
+<dl aria-label="Project details" class="tb">
+<div class="tb-head"><img src="images/inky-lantern.png" alt="" aria-hidden="true" width="1470" height="700" style="height:34px;width:auto"><span>Drawn by Julia Bilenko</span></div>
+<div><dt>Client / venue</dt><dd>Various</dd></div>
+<div class="half l"><dt>Year</dt><dd>2017–2020</dd></div>
+<div class="half"><dt>Status</dt><dd>Mixed</dd></div>
+<div><dt>Role</dt><dd>Key visuals and mood development</dd></div>
+<div><dt>Delivered</dt><dd>Concept paintings and night-time masterplan</dd></div>
+</dl>
+</div>
+<div class="gallery">
+<figure><a class="zoom" href="images/night-fireworks.jpg"><img src="images/night-fireworks.jpg" width="1000" height="540" alt="Fireworks finale" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Fireworks finale</figcaption></figure>
+<figure><a class="zoom" href="images/night-forest.jpg"><img src="images/night-forest.jpg" width="1000" height="589" alt="Glowing forest walk" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Glowing forest walk</figcaption></figure>
+<figure><a class="zoom" href="images/night-lab.jpg"><img src="images/night-lab.jpg" width="1276" height="600" alt="Dark-ride laboratory scene" loading="lazy" decoding="async"><span class="sr-only"> (open full size)</span><span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></span></a><figcaption>Dark-ride laboratory scene</figcaption></figure>
+</div>
+<p class="sheet-note">Concept art by Julia Bilenko for Scruffy Dog Productions Ltd. Project © Scruffy Dog Productions Ltd and its clients. Brands belong to their owners.</p>
+</article>
+
+</div>
+</section>
+
+<section id="process" aria-labelledby="process-h" class="section">
+<div class="wrap">
+<h2 id="process-h" class="section-title">From story to something you can build</h2>
+<ol class="stages">
+<li><span class="dot" aria-hidden="true"></span><span class="n">Stage 1</span><h3>Concept and story</h3><p>A clear idea and a world to build it in. Written first, drawn second.</p></li>
+<li><span class="dot" aria-hidden="true"></span><span class="n">Stage 2</span><h3>Layout and guest flow</h3><p>Zoning, sightlines, capacity and the route from arrival to exit.</p></li>
+<li><span class="dot" aria-hidden="true"></span><span class="n">Stage 3</span><h3>Key visuals</h3><p>Mood and views that sell the idea to a board, a landlord or a lender.</p></li>
+<li><span class="dot" aria-hidden="true"></span><span class="n">Stage 4</span><h3>Assets and props</h3><p>Elevations, prop sheets and material call-outs ready for fabricators to price and build.</p></li>
+</ol>
+</div>
+</section>
+
+<section id="contact" aria-labelledby="contact-h" class="contact">
+<div class="wrap">
+<h2 id="contact-h">Let’s build extraordinary places</h2>
+<div class="side">
+<p>We’re open to design projects for small venues, and to partnerships with fabricators, builders and operators. Julia leads concept and design, and we bring in illustrators, technical designers and fabricators as a project needs them.</p>
+<div class="actions">
+<a href="mailto:julietbilnko@gmail.com" class="btn">Email Julia</a>
+<a class="social" href="https://www.linkedin.com/in/julia-bilenko" aria-label="Julia Bilenko on LinkedIn"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 4.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+</div>
+<p class="addr"><a href="mailto:julietbilnko@gmail.com">julietbilnko@gmail.com</a></p>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer>
+<div class="wrap">
+<p>Projects shown, other than A Night at Thornwick, are concept work by Julia Bilenko produced as an independent contractor for Scruffy Dog Productions Ltd and other studios. Projects © Scruffy Dog Productions Ltd, the respective studios and their clients; brands and built attractions belong to their owners. A Night at Thornwick is © 2026 Inky Lantern Studio.</p>
+<p>© 2026 Julia Bilenko, Inky Lantern Studio</p>
+</div>
+</footer>
+
+<dialog class="viewer" id="viewer" aria-label="Image viewer">
+<div class="bar">
+<span class="count narrow" aria-live="polite"></span>
+<div class="ctrls">
+<button type="button" data-act="prev" aria-label="Previous image"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M11 3.5 5.5 9l5.5 5.5"/></svg></button>
+<button type="button" data-act="next" aria-label="Next image"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 3.5 12.5 9 7 14.5"/></svg></button>
+<button type="button" data-act="close" aria-label="Close viewer"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4l10 10M14 4 4 14"/></svg></button>
+</div>
+</div>
+<figure class="stage"><img alt=""><figcaption></figcaption></figure>
+</dialog>
+
+<script>
+(function(){
+  var dlg=document.getElementById('viewer');
+  if(!dlg||typeof dlg.showModal!=='function')return; // without <dialog> support, links open the image directly
+  var img=dlg.querySelector('img'),cap=dlg.querySelector('figcaption'),count=dlg.querySelector('.count'),
+      prev=dlg.querySelector('[data-act=prev]'),next=dlg.querySelector('[data-act=next]');
+  var set=[],i=0,opener=null;
+  function show(n){
+    i=(n+set.length)%set.length;
+    var a=set[i],t=a.querySelector('img'),fc=a.parentNode.querySelector('figcaption');
+    img.src=a.href;img.alt=t.alt;cap.textContent=fc?fc.textContent:'';
+    count.textContent=set.length>1?(i+1)+' of '+set.length:'';
+    prev.hidden=next.hidden=set.length<2;
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a.zoom');
+    if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
+    e.preventDefault();
+    set=Array.prototype.slice.call(a.closest('article').querySelectorAll('a.zoom'));
+    opener=a;show(set.indexOf(a));dlg.showModal();
+    dlg.querySelector('[data-act=close]').focus();
+  });
+  dlg.addEventListener('click',function(e){
+    var b=e.target.closest('button');
+    if(b){var act=b.dataset.act;if(act==='close')dlg.close();else show(i+(act==='next'?1:-1));return;}
+    if(e.target===dlg||e.target.classList.contains('stage'))dlg.close();
+  });
+  dlg.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'&&set.length>1)show(i+1);
+    else if(e.key==='ArrowLeft'&&set.length>1)show(i-1);
+  });
+  dlg.addEventListener('close',function(){img.removeAttribute('src');if(opener)opener.focus();});
+})();
+</script>
+<script>
+(function(){
+  // current section marker in the nav
+  var links=[].slice.call(document.querySelectorAll('.site-header .links a')),
+      secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}),tick=false;
+  function spy(){
+    tick=false;var cur=-1,line=innerHeight*.35;
+    secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<=line)cur=i;});
+    if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)cur=links.length-1;
+    links.forEach(function(a,i){a.classList.toggle('on',i===cur);if(i===cur)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
+  }
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(spy);}},{passive:true});
+  addEventListener('resize',spy);spy();
+
+  // gentle reveal on scroll (skipped for reduced motion)
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});
+  [].forEach.call(document.querySelectorAll('.about>*,.section-title,.register,.sheet-head,.sheet-main,.gallery figure,.stages li,.contact .wrap>*'),function(el){
+    var n=[].indexOf.call(el.parentNode.children,el);
+    if(el.matches('.gallery figure,.stages li,.about>*'))el.style.setProperty('--d',Math.min(n,4)*70+'ms');
+    el.classList.add('rv');io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

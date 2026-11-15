@@ -1,0 +1,5 @@
+.DS_Store
+# local backup of the old design (contains details removed from the live site)
+index-original.html
+# old logo, no longer used
+images/logo.png
