@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Inky Lantern Studio — themed environment design, led by Julia Bilenko</title>
 <meta name="description" content="Inky Lantern Studio is a themed environment design studio led by Julia Bilenko, founder and creative director. Themed environments and experiences for small attractions and venues.">
-<meta name="theme-color" content="#121019">
+<meta name="theme-color" content="#0F1614">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Inter:wght@400..600&amp;display=swap">
 <style>
 :root{
   color-scheme:dark;
-  --ink:#121019; --raised:#1C1925; --text:#EDE6D6; --soft:#C9C1D3; --muted:#9A93A8;
-  --line:#3A3446; --line-2:#5A5268; --amber:#D9973F;
+  --ink:#0F1614; --raised:#18221F; --text:#ECE7D8; --soft:#C3CCC4; --muted:#8FA097;
+  --line:#2C3A35; --line-2:#4A5C55; --amber:#D4A24C;
   --gutter:clamp(16px,4vw,32px); --header-h:68px;
   --serif:'Cormorant Garamond',Georgia,serif;
 }
@@ -40,10 +40,10 @@ p,figure,dl,dd,ol,ul{margin:0}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;min-height:48px;padding:0 24px;background:var(--amber);color:var(--ink);text-decoration:none;font-weight:600}
-.btn:hover{color:var(--ink);background:#E6A653}
+.btn:hover{color:var(--ink);background:#E0B263}
 
 /* header */
-.site-header{position:sticky;top:0;z-index:50;background:rgb(18 16 25 / .92);border-bottom:1px solid var(--line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.site-header{position:sticky;top:0;z-index:50;background:rgb(15 22 20 / .92);border-bottom:1px solid var(--line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .site-header nav{min-height:var(--header-h);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;padding-block:10px}
 .site-header .home{display:block;line-height:0}
 .site-header .home img{height:46px;width:auto}
@@ -131,7 +131,7 @@ figcaption{margin-top:8px;font-size:14px;color:var(--muted);line-height:1.45}
   .gallery figcaption{font-size:13px}
   .gallery .zoom .ico{width:28px;height:28px;right:6px;bottom:6px}
 }
-.zoom .ico{position:absolute;right:8px;bottom:8px;width:32px;height:32px;display:grid;place-items:center;background:rgb(18 16 25 / .85);color:var(--text);border:1px solid var(--line-2);opacity:0;transition:opacity .15s}
+.zoom .ico{position:absolute;right:8px;bottom:8px;width:32px;height:32px;display:grid;place-items:center;background:rgb(15 22 20 / .85);color:var(--text);border:1px solid var(--line-2);opacity:0;transition:opacity .15s}
 .zoom:hover .ico,.zoom:focus-visible .ico{opacity:1}
 @media (hover:none){.zoom .ico{opacity:1}}
 
@@ -170,8 +170,8 @@ footer .wrap{padding-block:32px;display:flex;flex-direction:column;gap:12px;font
 footer p:first-child{max-width:64em}
 
 /* viewer */
-.viewer{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgb(10 9 14 / .97);color:var(--text)}
-.viewer::backdrop{background:rgb(10 9 14 / .8)}
+.viewer{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgb(8 12 11 / .97);color:var(--text)}
+.viewer::backdrop{background:rgb(8 12 11 / .8)}
 .viewer[open]{display:flex;flex-direction:column}
 .viewer .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px var(--gutter);border-bottom:1px solid var(--line)}
 .viewer .count{font-size:14px;color:var(--muted)}

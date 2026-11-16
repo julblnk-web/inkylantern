@@ -10,7 +10,7 @@ Website for Inky Lantern Studio, a themed environment design studio led by Julia
 
 ## Brand (keep unless asked to change)
 - Display font: Cormorant Garamond, weight 500 (Google Fonts). Body: Inter. (Changed from Instrument Serif + Archivo on 2026-11-15.)
-- Colours: night ink #121019 (background), raised #1C1925, parchment #EDE6D6 (text), soft text #C9C1D3, muted #9A93A8, lines #3A3446 / #5A5268, lamplight amber #D9973F (accent: buttons, markers, project subtitles only).
+- Colours ("deep forest + brass", changed from night ink + amber on 2026-11-16): forest ink #0F1614 (background), raised #18221F, parchment #ECE7D8 (text), soft text #C3CCC4, muted #8FA097, lines #2C3A35 / #4A5C55, brass #D4A24C (accent: buttons, markers, project subtitles only; button hover #E0B263).
 - Signature element: project details shown as a drawing title block (ruled grid with the logo and "Drawn by Julia Bilenko").
 
 ## Positioning
